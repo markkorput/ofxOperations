@@ -2,13 +2,14 @@
 
 #include "ofMain.h"
 #include "ofxTerminal.h"
+#include "ofxOperations.h"
 
 class ofApp : public ofBaseApp{
 
-	public:
-		void setup();
-		void update();
-		void draw();
+    public:
+        void setup();
+        void update();
+        void draw();
 
         void onTerminalCommand(const string & cmd);
 
@@ -24,7 +25,13 @@ class ofApp : public ofBaseApp{
 //		void dragEvent(ofDragInfo dragInfo);
 //		void gotMessage(ofMessage msg);
 
+    public: // parameters
+
+        ofParameterGroup params;
+        ofParameter<float> sizeParam;
+
     private:
         ofxTerminal terminal;
+        ofxOperations::OperationManager opsManager;
 
 };
