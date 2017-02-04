@@ -26,9 +26,6 @@ shared_ptr<OperationGroup> Params::generateFor(const ofParameterGroup &group){
 
 shared_ptr<OperationGroup> Params::generateFor(const ofAbstractParameter &param){
     auto opGroup = make_shared<OperationGroup>();
-
-    auto setOp = make_shared<Operation>();
-    setOp->set("set-"+param.getName(), "Set " + param.getName());
-    opGroup->add(setOp);
+    opGroup->add("set-"+param.getName(), "Set " + param.getName());
     return opGroup;
 }

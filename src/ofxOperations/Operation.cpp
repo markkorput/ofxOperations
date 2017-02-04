@@ -6,7 +6,7 @@
 using namespace ofxOperations;
 
 Operation::Operation() : _id(""), name(""), description("") {
-
+    mType = typeid(Operation).name();
 }
 
 Operation::Operation(string _id, string name, string description){
