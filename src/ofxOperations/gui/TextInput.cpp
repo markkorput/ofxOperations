@@ -7,7 +7,7 @@
 using namespace ofxOperations::gui;
 
 void TextInput::setup(){
-    ofAddListener(ofEvents().keyPressed, this, &TextInput::keyPressed);
+    ofAddListener(ofEvents().keyPressed, this, &TextInput::keyPressed, OF_EVENT_ORDER_BEFORE_APP);
 }
 
 void TextInput::destroy(){
@@ -23,6 +23,13 @@ void TextInput::draw(){
     }
 
     ofDrawBitmapString(value, pos.x, pos.y);
+}
+
+void TextInput::setActive(bool active){
+    bActive=active;
+
+    if(bActive)
+        ofSetEscapeQuitsApp(!bActive);
 }
 
 void TextInput::keyPressed(ofKeyEventArgs &event) {
@@ -45,6 +52,10 @@ void TextInput::keyPressed(ofKeyEventArgs &event) {
         case OF_KEY_TAB:
             setActive(false);
             break;
+
+        case OF_KEY_ESC:
+            ofNotifyEvent(escapeEvent, *this, this);
+            return;
 
         default:
             if(event.key >= ' ' && event.key <= 255){

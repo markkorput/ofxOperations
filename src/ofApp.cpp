@@ -10,6 +10,8 @@ void ofApp::setup(){
     ofxOperations::Params::Generator opsParamsGenerator;
     opsGroup.add(opsParamsGenerator.generateFor(params));
 
+    operationsLauncher.setup(&opsGroup);
+
     ofAddListener(terminal.commandSent, this, &ofApp::onTerminalCommand);
 }
 
@@ -21,6 +23,8 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     terminal.draw(10, 10);
+    if(operationsLauncher.getActive())
+        operationsLauncher.draw();
 }
 
 //--------------------------------------------------------------
@@ -29,5 +33,15 @@ void ofApp::onTerminalCommand(const string & cmd){
 
     if(cmd == "quit" || cmd == "exit"){
         ofExit();
+    }
+}
+
+//--------------------------------------------------------------
+void ofApp::keyPressed(int key){
+    if(operationsLauncher.getActive())
+        return;
+
+    if(key == '`'){
+        operationsLauncher.activate();
     }
 }

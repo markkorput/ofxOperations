@@ -13,7 +13,8 @@ class ofApp : public ofBaseApp{
 
         void onTerminalCommand(const string & cmd);
 
-//		void keyPressed(int key);
+        void keyPressed(int key);
+
 //		void keyReleased(int key);
 //		void mouseMoved(int x, int y );
 //		void mouseDragged(int x, int y, int button);
@@ -33,5 +34,5 @@ class ofApp : public ofBaseApp{
     private:
         ofxTerminal terminal;
         ofxOperations::OperationGroup opsGroup;
-
+        ofxOperations::gui::Launcher operationsLauncher;
 };

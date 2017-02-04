@@ -19,7 +19,8 @@ namespace ofxOperations { namespace gui {
     public: // getter / setter methods
 
         const string& getValue(){ return value; }
-        void setActive(bool active=true){ bActive=active; }
+        void setValue(const string &newValue){ value=newValue; }
+        void setActive(bool active=true);
 
     private: // callbacks
 
@@ -28,6 +29,7 @@ namespace ofxOperations { namespace gui {
     public: // events
 
         ofEvent<TextInput> submitEvent;
+        ofEvent<TextInput> escapeEvent;
 
     private: // attributes
 
