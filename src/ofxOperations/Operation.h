@@ -13,7 +13,8 @@ namespace ofxOperations {
             Operation();
             Operation(string _id, string name="", string description="");
 
-            void invoke();
+            void run();
+            virtual void perform(){}
 
         public: // getters / setters
 
@@ -24,7 +25,7 @@ namespace ofxOperations {
 
         public: // events
 
-            ofEvent<Operation> runEvent;
+            ofEvent<Operation> startEvent, endEvent;
 
         private: // attributes
 

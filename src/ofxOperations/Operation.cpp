@@ -14,8 +14,10 @@ Operation::Operation(string _id, string name, string description){
     this->description = description;
 }
 
-void Operation::invoke(){
-    ofNotifyEvent(runEvent, *this, this);
+void Operation::run(){
+    ofNotifyEvent(startEvent, *this, this);
+    perform();
+    ofNotifyEvent(endEvent, *this, this);
 }
 
 void Operation::set(string _id, string name, string description){
