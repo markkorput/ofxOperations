@@ -3,25 +3,24 @@
 // OF
 #include "ofTypes.h"
 // ofxOperations
-#include "OperationGroupItem.h"
 #include "Operation.h"
 
 namespace ofxOperations {
 
-    class OperationGroup : public OperationGroupItem {
+    class OperationGroup {
 
         public: // methods
             OperationGroup();
 
-            void add(shared_ptr<OperationGroup> opGroup);
             void add(shared_ptr<Operation> op);
+            void add(shared_ptr<OperationGroup> opGroup);
             shared_ptr<Operation> add(const string& _id, const string& name = "", const string &description = "");
 
         public: // getters / setters
-            // const vector<shared_ptr<Operation>> & getOperations(){ return operations; }
+            const vector<shared_ptr<Operation>> & getOperations(){ return operations; }
 
         private: // attributes
-            vector<shared_ptr<OperationGroupItem>> operations_group_items;
+            vector<shared_ptr<Operation>> operations;
     };
 
 } // namespace ofxOperations

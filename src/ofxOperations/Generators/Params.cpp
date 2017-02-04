@@ -11,8 +11,8 @@ shared_ptr<OperationGroup> Params::generateFor(const ofParameterGroup &group){
         string name = group.getName(i);
 
         if(type == typeid(ofParameterGroup).name()){
-            auto subOpGroup = generateFor(group.getGroup(i));
-            opGroup->add(subOpGroup);
+            // auto subOpGroup = generateFor(group.getGroup(i));
+            // opGroup->add(subOpGroup);
             continue;
         }
 

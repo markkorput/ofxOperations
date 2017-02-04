@@ -2,15 +2,15 @@
 
 using namespace ofxOperations;
 
-OperationGroup::OperationGroup(){
-    mType = typeid(OperationGroup).name();
+void OperationGroup::add(shared_ptr<Operation> op){
+    operations.push_back(op);
 }
 
-void OperationGroup::add(shared_ptr<OperationGroup> opGroup){
-    operations_group_items.push_back(static_pointer_cast<OperationGroupItem>(opGroup));
-}
-void OperationGroup::add(shared_ptr<Operation> op){
-    operations_group_items.push_back(static_pointer_cast<OperationGroupItem>(op));
+void OperationGroup::add(shared_ptr<OperationGroup> otherGroup){
+    // copy all operations from otherGroup to this group
+    for(auto op : otherGroup->getOperations()){
+        this->add(op);
+    }
 }
 
 shared_ptr<Operation> OperationGroup::add(const string& _id, const string& name, const string &description){

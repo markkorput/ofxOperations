@@ -3,12 +3,10 @@
 // OF dependencies
 #include "ofTypes.h"
 #include "ofEvent.h"
-// ofxOperations
-#include "OperationGroupItem.h"
 
 namespace ofxOperations {
 
-    class Operation : public OperationGroupItem{
+    class Operation {
 
         public: // methods
 
