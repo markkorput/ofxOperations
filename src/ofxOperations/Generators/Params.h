@@ -1,6 +1,7 @@
 #pragma once
 
 // OF
+#include <stdlib.h>
 #include "ofParameterGroup.h"
 // ofxOperations
 #include "../OperationGroup.h"

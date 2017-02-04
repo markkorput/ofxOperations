@@ -10,8 +10,6 @@ namespace ofxOperations {
     class OperationGroup {
 
         public: // methods
-            OperationGroup();
-
             void add(shared_ptr<Operation> op);
             void add(shared_ptr<OperationGroup> opGroup);
             shared_ptr<Operation> add(const string& _id, const string& name = "", const string &description = "");
