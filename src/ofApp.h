@@ -32,6 +32,6 @@ class ofApp : public ofBaseApp{
 
     private:
         ofxTerminal terminal;
-        ofxOperations::OperationManager opsManager;
+        ofxOperations::OperationGroup opsGroup;
 
 };

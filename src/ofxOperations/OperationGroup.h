@@ -7,9 +7,14 @@
 
 namespace ofxOperations {
 
-    class OperationManager {
+    class OperationGroup {
 
         public: // methods
+
+            void add(shared_ptr<OperationGroup> opGroup);
+            void add(shared_ptr<Operation> op);
+
+        public: // getters / setters
             const vector<shared_ptr<Operation>> & getOperations(){ return operations; }
 
         private: // attributes

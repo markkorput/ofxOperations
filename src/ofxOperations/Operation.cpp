@@ -10,11 +10,17 @@ Operation::Operation() : _id(""), name(""), description("") {
 }
 
 Operation::Operation(string _id, string name, string description){
-    setId(_id);
-    setName(name);
-    setDescription(description);
+    this->_id = _id;
+    this->name = name;
+    this->description = description;
 }
 
 void Operation::invoke(){
     ofNotifyEvent(runEvent, *this, this);
+}
+
+void Operation::set(string _id, string name, string description){
+    this->_id = _id;
+    this->name = name;
+    this->description = description;
 }

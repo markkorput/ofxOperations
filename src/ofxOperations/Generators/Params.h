@@ -3,19 +3,14 @@
 // OF
 #include "ofParameterGroup.h"
 // ofxOperations
-#include "../OperationManager.h"
+#include "../OperationGroup.h"
 
 namespace ofxOperations { namespace Generators {
 
     class Params {
     public: // methods
-        Params(OperationManager& operationManager);
-
-        void generateFor(ofParameterGroup &parameterGroup);
-
-    private: // attributes
-
-        OperationManager* operationManager;
+        shared_ptr<OperationGroup> generateFor(const ofParameterGroup &group);
+        shared_ptr<OperationGroup> generateFor(const ofAbstractParameter &param);
     };
 
 }}
