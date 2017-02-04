@@ -10,8 +10,8 @@ namespace ofxOperations { namespace Generators {
 
     class Params {
     public: // methods
-        shared_ptr<OperationGroup> generateFor(const ofParameterGroup &group);
-        shared_ptr<OperationGroup> generateFor(const ofAbstractParameter &param);
+        shared_ptr<OperationGroup> generateFor(const ofParameterGroup &group, const string &prefix="");
+        shared_ptr<OperationGroup> generateFor(const ofAbstractParameter &param, const string &prefix="");
     };
 
 }}
