@@ -1,9 +1,10 @@
-#include "Params.h"
+#include "Generator.h"
+#include "Operation.h"
 
 using namespace ofxOperations;
-using namespace ofxOperations::Generators;
+using namespace ofxOperations::Params;
 
-shared_ptr<OperationGroup> Params::generateFor(const ofParameterGroup &group, const string &prefix){
+shared_ptr<OperationGroup> Generator::generateFor(ofParameterGroup &group, const string &prefix){
     auto opGroup = make_shared<OperationGroup>();
 
     for(int i=0; i<(int)group.size(); i++){
@@ -23,9 +24,14 @@ shared_ptr<OperationGroup> Params::generateFor(const ofParameterGroup &group, co
     return opGroup;
 }
 
-shared_ptr<OperationGroup> Params::generateFor(const ofAbstractParameter &param, const string &prefix){
+shared_ptr<OperationGroup> Generator::generateFor(ofAbstractParameter &param, const string &prefix){
     auto opGroup = make_shared<OperationGroup>();
-    opGroup->add(   "set-param-" + prefix + param.getName(),
-                    "Set param " + prefix + param.getName());
+
+    auto op  = make_shared<Params::Operation>();
+    op->set("set-param-" + prefix + param.getName(),
+            "Set param " + prefix + param.getName());
+    op->setParameter(&param);
+    opGroup->add(op);
+
     return opGroup;
 }

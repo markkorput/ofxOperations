@@ -12,8 +12,10 @@ namespace ofxOperations {
 
             Operation();
             Operation(string _id, string name="", string description="");
-
             void run();
+
+        protected:
+
             virtual void perform(){}
 
         public: // getters / setters

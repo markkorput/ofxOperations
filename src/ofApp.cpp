@@ -7,8 +7,8 @@ void ofApp::setup(){
     params.setName("ofxOperationsTestParam");
     params.add(sizeParam.set("size", 1.0f, 0.0f, 10.0f));
 
-    ofxOperations::Generators::Params paramOpsGenerator;
-    opsGroup.add(paramOpsGenerator.generateFor(params));
+    ofxOperations::Params::Generator opsParamsGenerator;
+    opsGroup.add(opsParamsGenerator.generateFor(params));
 
     ofAddListener(terminal.commandSent, this, &ofApp::onTerminalCommand);
 }
