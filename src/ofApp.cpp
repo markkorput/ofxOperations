@@ -12,7 +12,7 @@ void ofApp::setup(){
 
     operationsLauncher.setup(&opsGroup);
 
-    ofAddListener(terminal.commandSent, this, &ofApp::onTerminalCommand);
+    // ofAddListener(terminal.commandSent, this, &ofApp::onTerminalCommand);
 }
 
 //--------------------------------------------------------------
@@ -22,7 +22,7 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    terminal.draw(10, 10);
+    // terminal.draw(10, 10);
     if(operationsLauncher.getActive())
         operationsLauncher.draw();
 }

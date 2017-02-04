@@ -14,15 +14,13 @@ void TextInput::destroy(){
     ofRemoveListener(ofEvents().keyPressed, this, &TextInput::keyPressed);
 }
 
-void TextInput::draw(){
-    ofVec2f pos(10.0f, 10.0f);
-
+void TextInput::draw(float x, float y){
     if(bActive){
-        ofDrawBitmapStringHighlight(value, pos.x, pos.y);
+        ofDrawBitmapStringHighlight(value, x,y);
         return;
     }
 
-    ofDrawBitmapString(value, pos.x, pos.y);
+    ofDrawBitmapString(value, x,y);
 }
 
 void TextInput::setActive(bool active){

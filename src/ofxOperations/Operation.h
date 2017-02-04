@@ -22,7 +22,9 @@ namespace ofxOperations {
 
             void set(string _id, string name="", string description="");
             void setId(string _id){ this->_id = _id; }
+            const string& getName(){ return name; }
             void setName(string name){ this->name = name; }
+            const string& getDescription(){ return description; }
             void setDescription(string desc){ this->description = desc; }
 
         public: // events

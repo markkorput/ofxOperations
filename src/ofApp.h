@@ -32,7 +32,7 @@ class ofApp : public ofBaseApp{
         ofParameter<float> sizeParam;
 
     private:
-        ofxTerminal terminal;
+        // ofxTerminal terminal;
         ofxOperations::OperationGroup opsGroup;
         ofxOperations::gui::Launcher operationsLauncher;
 };

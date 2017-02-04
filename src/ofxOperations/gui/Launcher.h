@@ -1,6 +1,7 @@
 #pragma once
 
 #include "TextInput.h"
+#include "SuggestionsBox.h"
 #include "../OperationGroup.h"
 
 namespace ofxOperations { namespace gui {
@@ -24,6 +25,9 @@ namespace ofxOperations { namespace gui {
         bool bActive;
 
         TextInput textInput;
+        SuggestionsBox suggestionsBox;
+
         ofxOperations::OperationGroup *operationGroup;
+        deque<shared_ptr<Operation>> suggestedOperations;
     };
 }}

@@ -12,7 +12,7 @@ namespace ofxOperations { namespace gui {
         ~TextInput(){ destroy(); }
         void setup();
         void destroy();
-        void draw();
+        void draw(float x=0.0f, float y=0.0f);
 
         void focus(){ setActive(); }
 
