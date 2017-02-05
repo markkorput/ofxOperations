@@ -15,7 +15,7 @@ namespace ofxOperations { namespace Params {
         Operation();
         ~Operation();
 
-        void draw(float x=0.0f, float y=0.0f);
+        void draw(float x=10.0f, float y=10.0f);
 
     public: // getter/setter methods
 

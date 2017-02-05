@@ -1,21 +1,25 @@
 // OF
 #include "ofAppRunner.h"
 #include "ofGraphics.h"
+#include "ofBitmapFont.h"
 // ofxOperations
 #include "TextInput.h"
 
 using namespace ofxOperations::gui;
 
+TextInput::TextInput() : bActive(false), cursorPos(0){
+}
+
 void TextInput::setup(){
+    auto rect = getBitmapStringBoundingBox("W"); // random character
+    charSize.set(rect.getWidth(), rect.getHeight());
+    setPrompt(DEFAULT_PROMPT);
     ofAddListener(ofEvents().keyPressed, this, &TextInput::keyPressed, OF_EVENT_ORDER_BEFORE_APP);
 }
 
 void TextInput::destroy(){
     ofRemoveListener(ofEvents().keyPressed, this, &TextInput::keyPressed);
 }
-
-#define CHAR_W (8.0f)
-#define CHAR_H (5.0f)
 
 void TextInput::draw(float x, float y){
     if(!bActive){
@@ -27,11 +31,41 @@ void TextInput::draw(float x, float y){
 
     // text, highlighted (active)
     ofSetColor(ofColor::white);
-    ofDrawBitmapStringHighlight(value+" ", x,y);
+    ofDrawBitmapStringHighlight(sPrompt+value+" ", x,y);
 
     // cursor
-    ofSetColor(200, 200, 200, 200);
-    ofDrawRectangle(x+CHAR_W*cursorPos, y+CHAR_H-2.0f, CHAR_W, 4.0f);
+    ofSetColor(200, 200, 200, 150);
+    ofDrawRectangle(x + cursorOffset.x + charSize.x * cursorPos,
+                    y + cursorOffset.y,
+                    charSize.x,
+                    charSize.y);
+}
+
+// getBitmapStringBoundingBox function from @roymacdonald
+// https://forum.openframeworks.cc/t/how-to-get-size-of-ofdrawbitmapstring/22578/7
+ofRectangle TextInput::getBitmapStringBoundingBox(string text){
+    vector<string> lines = ofSplitString(text, "\n");
+        int maxLineLength = 0;
+        for(int i = 0; i < (int)lines.size(); i++) {
+            // tabs are not rendered
+            const string & line(lines[i]);
+            int currentLineLength = 0;
+            for(int j = 0; j < (int)line.size(); j++) {
+                if (line[j] == '\t') {
+                    currentLineLength += 8 - (currentLineLength % 8);
+                } else {
+                    currentLineLength++;
+                }
+            }
+            maxLineLength = MAX(maxLineLength, currentLineLength);
+        }
+
+        int padding = 4;
+        int fontSize = 8;
+        float leading = 1.7;
+        int height = lines.size() * fontSize * leading - 1;
+        int width = maxLineLength * fontSize;
+    return ofRectangle(0,0,width, height);
 }
 
 void TextInput::setValue(const string &newValue){
@@ -44,6 +78,16 @@ void TextInput::setActive(bool active){
 
     if(bActive)
         ofSetEscapeQuitsApp(!bActive);
+}
+
+void TextInput::setPrompt(const string& prompt){
+    sPrompt = prompt;
+
+    auto parts = ofSplitString(prompt, "\n");
+    cursorOffset.set(parts.back().size() * charSize.x,
+                    // move up additional 0.5 character height
+                    // because of different render coordinate modes (?)
+                    (parts.size()-1.8f) * charSize.y);
 }
 
 void TextInput::keyPressed(ofKeyEventArgs &event) {

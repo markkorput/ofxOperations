@@ -8,7 +8,7 @@ namespace ofxOperations { namespace gui {
     class Launcher {
     public: // methods
         void setup(ofxOperations::OperationGroup *operationGroup=NULL);
-        void draw();
+        void draw(float x=10.0f, float y=10.0f);
 
         void activate(){ setActive(); }
         void updateSuggestions(const string& query);

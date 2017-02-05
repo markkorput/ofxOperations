@@ -6,9 +6,6 @@ using namespace ofxOperations::Params;
 
 Operation::Operation() : bActive(false), parameter(NULL){
     setAsync();
-    ofAddListener(textInput.submitEvent, this, &Operation::onInputSubmit);
-    ofAddListener(textInput.escapeEvent, this, &Operation::onInputEscape);
-    textInput.setup();
 }
 
 Operation::~Operation(){
@@ -22,9 +19,13 @@ void Operation::draw(float x, float y){
 void Operation::perform(){
     if(!parameter) return;
 
-    setActive();
+    // setup
+    textInput.setup();
     textInput.setValue(ofToString(parameter->toString()));
-    textInput.setActive();
+    textInput.setPrompt(getName()+":\n");
+    ofAddListener(textInput.submitEvent, this, &Operation::onInputSubmit);
+    ofAddListener(textInput.escapeEvent, this, &Operation::onInputEscape);
+    setActive();
 }
 
 void Operation::setActive(bool active){
@@ -41,7 +42,7 @@ void Operation::setActive(bool active){
 
 void Operation::onDraw(ofEventArgs&){
     if(!bActive) return;
-    draw(100.0f, 100.0f);
+    draw();
 }
 
 void Operation::onInputSubmit(ofxOperations::gui::TextInput &input){

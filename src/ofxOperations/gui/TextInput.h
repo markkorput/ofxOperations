@@ -1,6 +1,10 @@
 #pragma once
 
+// OF
 #include "ofEvents.h"
+#include "ofRectangle.h"
+
+#define DEFAULT_PROMPT ">"
 
 namespace ofxOperations { namespace gui {
 
@@ -8,20 +12,25 @@ namespace ofxOperations { namespace gui {
 
     public: // methods
 
-        TextInput() : bActive(false), cursorPos(0){}
+        TextInput();
         ~TextInput(){ destroy(); }
         void setup();
         void destroy();
         void draw(float x=0.0f, float y=0.0f);
 
         void focus(){ setActive(); }
+        static ofRectangle getBitmapStringBoundingBox(string text);
 
     public: // getter / setter methods
 
         const string& getValue(){ return value; }
         void setValue(const string &newValue);
+
         bool getActive(){ return bActive; }
         void setActive(bool active=true);
+
+        const string& getPrompt(){ return sPrompt; }
+        void setPrompt(const string& prompt);
 
     private: // callbacks
 
@@ -37,7 +46,10 @@ namespace ofxOperations { namespace gui {
 
         bool bActive;
         string value;
+        string sPrompt;
         size_t cursorPos;
+        ofVec2f cursorOffset;
+        ofVec2f charSize;
 
     };
 }}

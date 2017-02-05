@@ -22,9 +22,9 @@ void Launcher::setup(ofxOperations::OperationGroup *operationGroup){
     ofAddListener(textInput.changeEvent, this, &Launcher::onTextInputChange);
 }
 
-void Launcher::draw(){
-    textInput.draw(10.0f, 10.0f);
-    suggestionsBox.draw(10.0f, 25.0f);
+void Launcher::draw(float x, float y){
+    textInput.draw(x, y);
+    suggestionsBox.draw(x, y+15.0f);
 }
 
 void Launcher::updateSuggestions(const string& query){

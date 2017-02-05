@@ -28,7 +28,7 @@ shared_ptr<OperationGroup> Generator::generateFor(ofAbstractParameter &param, co
     auto opGroup = make_shared<OperationGroup>();
 
     auto op  = make_shared<Params::Operation>();
-    op->set("Set param: " + prefix + param.getName());
+    op->set("Set param " + prefix + param.getName());
     op->setParameter(&param);
     opGroup->add(op);
 
