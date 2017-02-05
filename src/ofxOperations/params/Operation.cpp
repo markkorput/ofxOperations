@@ -4,7 +4,7 @@
 
 using namespace ofxOperations::Params;
 
-Operation::Operation() : parameter(NULL), bActive(false){
+Operation::Operation() : bActive(false), parameter(NULL){
     setAsync();
     ofAddListener(textInput.submitEvent, this, &Operation::onInputSubmit);
     ofAddListener(textInput.escapeEvent, this, &Operation::onInputEscape);

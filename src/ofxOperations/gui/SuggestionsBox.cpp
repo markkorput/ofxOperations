@@ -18,6 +18,7 @@ void SuggestionsBox::destroy(){
 void SuggestionsBox::draw(float x, float y){
     if(!operations) return;
 
+    ofSetColor(ofColor::white);
     if(operations->size() == 0){
         string msg = "[no operations]";
         ofDrawBitmapString(msg, x, y);
@@ -50,7 +51,7 @@ void SuggestionsBox::setOperations(deque<shared_ptr<ofxOperations::Operation>> *
 }
 
 shared_ptr<ofxOperations::Operation> SuggestionsBox::getSelected(){
-    if(nSelected < 0)
+    if(operations == NULL || nSelected < 0 || operations->size() == 0)
         return nullptr;
 
     return (*operations)[nSelected];

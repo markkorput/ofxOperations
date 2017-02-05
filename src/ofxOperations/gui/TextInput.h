@@ -8,7 +8,7 @@ namespace ofxOperations { namespace gui {
 
     public: // methods
 
-        TextInput() : bActive(false){}
+        TextInput() : bActive(false), cursorPos(0){}
         ~TextInput(){ destroy(); }
         void setup();
         void destroy();
@@ -19,7 +19,7 @@ namespace ofxOperations { namespace gui {
     public: // getter / setter methods
 
         const string& getValue(){ return value; }
-        void setValue(const string &newValue){ value=newValue; }
+        void setValue(const string &newValue);
         bool getActive(){ return bActive; }
         void setActive(bool active=true);
 
@@ -37,6 +37,7 @@ namespace ofxOperations { namespace gui {
 
         bool bActive;
         string value;
+        size_t cursorPos;
 
     };
 }}

@@ -32,7 +32,7 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    ofSetColor(ofColor::white);
+    ofSetColor(ofColor::red);
     ofDrawRectangle(posParam.get().x, posParam.get().y, sizeParam.get(), 10.0f);
 
     // terminal.draw(10, 10);
