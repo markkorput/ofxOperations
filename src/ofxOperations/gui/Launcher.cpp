@@ -1,5 +1,6 @@
 // OF
 #include "ofUtils.h"
+#include "ofGraphics.h"
 // ofxOperations
 #include "Launcher.h"
 
@@ -31,6 +32,7 @@ void Launcher::destroy(){
 }
 
 void Launcher::draw(float x, float y){
+    ofEnableAlphaBlending();
     textInput.draw(x, y);
     suggestionsBox.draw(x, y+15.0f);
 }
