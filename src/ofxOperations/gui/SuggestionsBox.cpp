@@ -7,6 +7,7 @@ using namespace ofxOperations::gui;
 
 void SuggestionsBox::setup(deque<shared_ptr<ofxOperations::Operation>> * ops){
     setOperations(ops);
+    resetSelected();
     ofAddListener(ofEvents().keyPressed, this, &SuggestionsBox::keyPressed, OF_EVENT_ORDER_BEFORE_APP);
 }
 
@@ -34,6 +35,14 @@ void SuggestionsBox::draw(float x, float y){
         ofDrawBitmapString(op->getName(), i == nSelected ? x + 10.0f : x, y);
         y += dy;
     }
+}
+
+void SuggestionsBox::resetSelected(){
+    if(operations == NULL || operations->size() < 1){
+        nSelected = -1;
+    }
+
+    nSelected = 0;
 }
 
 void SuggestionsBox::setOperations(deque<shared_ptr<ofxOperations::Operation>> * ops){

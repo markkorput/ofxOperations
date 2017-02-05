@@ -1,4 +1,7 @@
+// ofxOperations
 #include "Launcher.h"
+// OF
+#include "ofUtils.h"
 
 using namespace ofxOperations::gui;
 
@@ -41,13 +44,16 @@ bool Launcher::match(const string& name, const string& query){
     if(query == "")
         return true;
 
+    string lName = ofToLower(name);
+    string lQuery = ofToLower(query);
+
     // start at beginning of name
     std::size_t p = 0;
 
     // loop over all characters in query
-    for(auto c : query){
+    for(auto c : lQuery){
         // find the current character _after_ the previous searched character
-        p = name.find(c, p);
+        p = lName.find(c, p);
 
         // not found? no match
         if(p == string::npos)
@@ -78,4 +84,5 @@ void Launcher::onTextInputEscape(TextInput &input){
 
 void Launcher::onTextInputChange(TextInput &input){
     updateSuggestions(input.getValue());
+    suggestionsBox.resetSelected();
 }

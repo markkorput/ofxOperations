@@ -17,8 +17,9 @@ namespace ofxOperations { namespace gui {
 
         void setup(deque<shared_ptr<ofxOperations::Operation>> * ops);
         void destroy();
-
         void draw(float x=0.0f, float y=0.0f);
+
+        void resetSelected();
 
     public: // getter/setter methods
         void setOperations(deque<shared_ptr<ofxOperations::Operation>> * ops);
