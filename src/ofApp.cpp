@@ -5,7 +5,11 @@ void ofApp::setup(){
     ofLogToFile("log.txt");
 
     params.setName("ofxOperationsTestParam");
-    params.add(sizeParam.set("size", 1.0f, 0.0f, 10.0f));
+    params.add(sizeParam.set("size", 1.0f));
+    params.add(posParam.set("pos", ofVec2f(0.0f)));
+    subParams.setName("sub");
+    subParams.add(strParam.set("name", "no name"));
+    params.add(subParams);
 
     ofxOperations::Params::Generator opsParamsGenerator;
     opsGroup.add(opsParamsGenerator.generateFor(params));
@@ -29,7 +33,7 @@ void ofApp::update(){
 //--------------------------------------------------------------
 void ofApp::draw(){
     ofSetColor(ofColor::white);
-    ofDrawRectangle(0.0f, 0.0f, sizeParam.get(), 10.0f);
+    ofDrawRectangle(posParam.get().x, posParam.get().y, sizeParam.get(), 10.0f);
 
     // terminal.draw(10, 10);
     if(operationsLauncher.getActive())

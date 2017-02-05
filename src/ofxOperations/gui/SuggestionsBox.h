@@ -6,13 +6,16 @@
 // ofxOperations
 #include "../Operation.h"
 
+#define DEFAULT_VISIBLE_COUNT 10
+#define NONE_SELECTED (-1)
+
 namespace ofxOperations { namespace gui {
     class SuggestionsBox {
     public: // methods
         SuggestionsBox() : bActive(false),
-                            nVisibleCount(5),
+                            nVisibleCount(DEFAULT_VISIBLE_COUNT),
                             nFirstVisible(0),
-                            nSelected(-1){}
+                            nSelected(NONE_SELECTED){}
         ~SuggestionsBox(){ destroy(); }
 
         void setup(deque<shared_ptr<ofxOperations::Operation>> * ops);

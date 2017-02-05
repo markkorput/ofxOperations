@@ -39,7 +39,7 @@ void SuggestionsBox::draw(float x, float y){
 
 void SuggestionsBox::resetSelected(){
     if(operations == NULL || operations->size() < 1){
-        nSelected = -1;
+        nSelected = NONE_SELECTED;
     }
 
     nSelected = 0;

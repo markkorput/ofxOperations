@@ -28,8 +28,10 @@ class ofApp : public ofBaseApp{
 
     public: // parameters
 
-        ofParameterGroup params;
+        ofParameterGroup params, subParams;
         ofParameter<float> sizeParam;
+        ofParameter<ofVec2f> posParam;
+        ofParameter<string> strParam;
 
     private:
         // ofxTerminal terminal;
