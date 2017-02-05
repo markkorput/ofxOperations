@@ -41,7 +41,24 @@ bool Launcher::match(const string& name, const string& query){
     if(query == "")
         return true;
 
-    return name.find(query) != string::npos;
+    // start at beginning of name
+    std::size_t p = 0;
+
+    // loop over all characters in query
+    for(auto c : query){
+        // find the current character _after_ the previous searched character
+        p = name.find(c, p);
+
+        // not found? no match
+        if(p == string::npos)
+            return false;
+
+        // next query character must appear _after_ this one
+        p += 1;
+    }
+
+    // all character found and in correct order
+    return true;
 }
 
 void Launcher::setActive(bool active){
