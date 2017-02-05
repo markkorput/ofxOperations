@@ -28,6 +28,9 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
+    ofSetColor(ofColor::white);
+    ofDrawRectangle(0.0f, 0.0f, sizeParam.get(), 10.0f);
+
     // terminal.draw(10, 10);
     if(operationsLauncher.getActive())
         operationsLauncher.draw();

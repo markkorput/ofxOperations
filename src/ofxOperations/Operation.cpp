@@ -16,7 +16,9 @@ Operation::Operation(string name, string description){
 void Operation::run(){
     ofNotifyEvent(startEvent, *this, this);
     perform();
-    ofNotifyEvent(endEvent, *this, this);
+
+    if(!bAsync)
+        ofNotifyEvent(endEvent, *this, this);
 }
 
 void Operation::set(const string& name, const string& description){

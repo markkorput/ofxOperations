@@ -26,6 +26,7 @@ namespace ofxOperations {
             const string& getDescription(){ return description; }
             void setDescription(string desc){ this->description = desc; }
             void set(const string& name, const string& description = "");
+            void setAsync(bool async=true){ bAsync = async; }
 
         public: // events
 
@@ -33,6 +34,7 @@ namespace ofxOperations {
 
         private: // attributes
 
+            bool bAsync;
             string name;
             string description;
     };

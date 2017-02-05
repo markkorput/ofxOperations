@@ -4,6 +4,7 @@
 #include "ofParameter.h"
 // ofxOperations
 #include "../Operation.h"
+#include "../gui/TextInput.h"
 
 namespace ofxOperations { namespace Params {
 
@@ -11,7 +12,10 @@ namespace ofxOperations { namespace Params {
 
     public: // methods
 
-        Operation() : parameter(NULL){}
+        Operation();
+        ~Operation();
+
+        void draw(float x=0.0f, float y=0.0f);
 
     public: // getter/setter methods
 
@@ -20,10 +24,17 @@ namespace ofxOperations { namespace Params {
     protected: // methods
 
         void perform() override;
-        string getUserInput();
+        void setActive(bool active=true);
+
+    protected: // callbacks
+
+        void onDraw(ofEventArgs&);
+        void onInputSubmit(ofxOperations::gui::TextInput &input);
+        void onInputEscape(ofxOperations::gui::TextInput &input);
 
     private: // attributes
-
+        bool bActive;
         ofAbstractParameter* parameter;
+        ofxOperations::gui::TextInput textInput;
     };
 }}
