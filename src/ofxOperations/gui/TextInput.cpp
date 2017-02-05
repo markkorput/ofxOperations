@@ -71,6 +71,7 @@ ofRectangle TextInput::getBitmapStringBoundingBox(string text){
 void TextInput::setValue(const string &newValue){
     value=newValue;
     cursorPos=value.size();
+    ofNotifyEvent(changeEvent, *this, this);
 }
 
 void TextInput::setActive(bool active){
