@@ -9,8 +9,16 @@ void ofApp::setup(){
 
     ofxOperations::Params::Generator opsParamsGenerator;
     opsGroup.add(opsParamsGenerator.generateFor(params));
+    opsGroup.add("111");
+    opsGroup.add("222");
+    opsGroup.add("333");
+    opsGroup.add("444");
+    opsGroup.add("555");
+    opsGroup.add("666");
 
-    ofAddListener(terminal.commandSent, this, &ofApp::onTerminalCommand);
+    operationsLauncher.setup(&opsGroup);
+
+    // ofAddListener(terminal.commandSent, this, &ofApp::onTerminalCommand);
 }
 
 //--------------------------------------------------------------
@@ -20,7 +28,12 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    terminal.draw(10, 10);
+    ofSetColor(ofColor::white);
+    ofDrawRectangle(0.0f, 0.0f, sizeParam.get(), 10.0f);
+
+    // terminal.draw(10, 10);
+    if(operationsLauncher.getActive())
+        operationsLauncher.draw();
 }
 
 //--------------------------------------------------------------
@@ -29,5 +42,15 @@ void ofApp::onTerminalCommand(const string & cmd){
 
     if(cmd == "quit" || cmd == "exit"){
         ofExit();
+    }
+}
+
+//--------------------------------------------------------------
+void ofApp::keyPressed(int key){
+    if(operationsLauncher.getActive())
+        return;
+
+    if(key == '`'){
+        operationsLauncher.activate();
     }
 }
