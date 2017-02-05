@@ -48,16 +48,13 @@ void ofApp::setup(){
     opsGroup.add("666");
 
     // setup launcher operations GUI
-    operationsLauncher.setup(&opsGroup);
+    operationsLauncher.setup(&opsGroup, true /* register draw event */);
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
     ofSetColor(ofColor::red);
     ofDrawRectangle(posParam.get().x, posParam.get().y, sizeParam.get(), 10.0f);
-
-    if(operationsLauncher.getActive())
-        operationsLauncher.draw();
 }
 
 //--------------------------------------------------------------
