@@ -18,7 +18,7 @@ namespace ofxOperations { namespace gui {
 
     private: // callbacks
 
-        void onTextInputSubmit(TextInput &input);
+        void onSuggestionSelect(Operation &op);
         void onTextInputEscape(TextInput &input);
 
     private: // attributes

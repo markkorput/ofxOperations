@@ -5,11 +5,10 @@
 
 using namespace ofxOperations;
 
-Operation::Operation() : _id(""), name(""), description("") {
+Operation::Operation() : name(""), description("") {
 }
 
-Operation::Operation(string _id, string name, string description){
-    this->_id = _id;
+Operation::Operation(string name, string description){
     this->name = name;
     this->description = description;
 }
@@ -20,8 +19,7 @@ void Operation::run(){
     ofNotifyEvent(endEvent, *this, this);
 }
 
-void Operation::set(string _id, string name, string description){
-    this->_id = _id;
+void Operation::set(const string& name, const string& description){
     this->name = name;
     this->description = description;
 }

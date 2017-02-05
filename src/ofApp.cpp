@@ -9,6 +9,12 @@ void ofApp::setup(){
 
     ofxOperations::Params::Generator opsParamsGenerator;
     opsGroup.add(opsParamsGenerator.generateFor(params));
+    opsGroup.add("111");
+    opsGroup.add("222");
+    opsGroup.add("333");
+    opsGroup.add("444");
+    opsGroup.add("555");
+    opsGroup.add("666");
 
     operationsLauncher.setup(&opsGroup);
 

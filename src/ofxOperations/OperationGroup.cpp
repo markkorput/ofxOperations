@@ -13,9 +13,9 @@ void OperationGroup::add(shared_ptr<OperationGroup> otherGroup){
     }
 }
 
-shared_ptr<Operation> OperationGroup::add(const string& _id, const string& name, const string &description){
+shared_ptr<Operation> OperationGroup::add(const string& name, const string &description){
     auto op = make_shared<Operation>();
-    op->set(_id, name, description);
+    op->set(name, description);
     add(op);
     return op;
 }

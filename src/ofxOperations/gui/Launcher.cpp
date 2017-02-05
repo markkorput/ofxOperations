@@ -17,7 +17,7 @@ void Launcher::setup(ofxOperations::OperationGroup *operationGroup){
 
     // these listeners don't need to be removed in a destructor,
     // because the destructor will also destruct the textInput and its events
-    ofAddListener(textInput.submitEvent, this, &Launcher::onTextInputSubmit);
+    ofAddListener(suggestionsBox.selectEvent, this, &Launcher::onSuggestionSelect);
     ofAddListener(textInput.escapeEvent, this, &Launcher::onTextInputEscape);
 }
 
@@ -29,16 +29,14 @@ void Launcher::draw(){
 void Launcher::setActive(bool active){
     bActive = active;
 
-    if(bActive){
-        textInput.focus();
-        return;
-    }
-
-    textInput.setActive(false);
+    suggestionsBox.setActive(bActive);
+    textInput.setActive(bActive);
 }
 
-void Launcher::onTextInputSubmit(TextInput &input){
-    input.setValue("");
+void Launcher::onSuggestionSelect(Operation &op){
+    textInput.setValue("");
+    setActive(false);
+    op.run();
 }
 
 void Launcher::onTextInputEscape(TextInput &input){
