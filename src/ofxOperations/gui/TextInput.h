@@ -20,6 +20,7 @@ namespace ofxOperations { namespace gui {
 
         const string& getValue(){ return value; }
         void setValue(const string &newValue){ value=newValue; }
+        bool getActive(){ return bActive; }
         void setActive(bool active=true);
 
     private: // callbacks
@@ -30,6 +31,7 @@ namespace ofxOperations { namespace gui {
 
         ofEvent<TextInput> submitEvent;
         ofEvent<TextInput> escapeEvent;
+        ofEvent<TextInput> changeEvent;
 
     private: // attributes
 

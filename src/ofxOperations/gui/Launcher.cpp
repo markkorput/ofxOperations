@@ -4,21 +4,19 @@ using namespace ofxOperations::gui;
 
 void Launcher::setup(ofxOperations::OperationGroup *operationGroup){
     this->operationGroup = operationGroup;
-    textInput.setup();
 
     // initial state; all operations are suggested
-    if(operationGroup){
-        for(auto op : operationGroup->getOperations()){
-            suggestedOperations.push_back(op);
-        }
-    }
+    updateSuggestions("");
 
+    // setup child-components
     suggestionsBox.setup(&suggestedOperations);
+    textInput.setup();
 
-    // these listeners don't need to be removed in a destructor,
-    // because the destructor will also destruct the textInput and its events
+    // register listeners. These don't need to be removed in a destructor,
+    // because the destructor will also destruct the components and their events
     ofAddListener(suggestionsBox.selectEvent, this, &Launcher::onSuggestionSelect);
     ofAddListener(textInput.escapeEvent, this, &Launcher::onTextInputEscape);
+    ofAddListener(textInput.changeEvent, this, &Launcher::onTextInputChange);
 }
 
 void Launcher::draw(){
@@ -26,11 +24,29 @@ void Launcher::draw(){
     suggestionsBox.draw(10.0f, 25.0f);
 }
 
-void Launcher::setActive(bool active){
-    bActive = active;
+void Launcher::updateSuggestions(const string& query){
+    suggestedOperations.clear();
 
-    suggestionsBox.setActive(bActive);
-    textInput.setActive(bActive);
+    // we need an operationGroup to have any operations at all
+    if(!operationGroup)
+        return;
+
+    for(auto op : operationGroup->getOperations()){
+        if(match(op->getName(), query))
+            suggestedOperations.push_back(op);
+    }
+}
+
+bool Launcher::match(const string& name, const string& query){
+    if(query == "")
+        return true;
+
+    return name.find(query) != string::npos;
+}
+
+void Launcher::setActive(bool active){
+    suggestionsBox.setActive(active);
+    textInput.setActive(active);
 }
 
 void Launcher::onSuggestionSelect(Operation &op){
@@ -41,4 +57,8 @@ void Launcher::onSuggestionSelect(Operation &op){
 
 void Launcher::onTextInputEscape(TextInput &input){
     setActive(false);
+}
+
+void Launcher::onTextInputChange(TextInput &input){
+    updateSuggestions(input.getValue());
 }

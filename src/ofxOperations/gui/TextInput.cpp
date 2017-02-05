@@ -41,6 +41,7 @@ void TextInput::keyPressed(ofKeyEventArgs &event) {
 
         case OF_KEY_BACKSPACE:
             value.pop_back();
+            ofNotifyEvent(changeEvent, *this, this);
             return;
 
         case OF_KEY_DEL:
@@ -59,6 +60,7 @@ void TextInput::keyPressed(ofKeyEventArgs &event) {
             if(event.key >= ' ' && event.key <= 255){
                 // printable character
                 value += ofToString(char(event.key));
+                ofNotifyEvent(changeEvent, *this, this);
             }
     }
 }

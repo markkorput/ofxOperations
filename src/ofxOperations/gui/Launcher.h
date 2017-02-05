@@ -9,20 +9,23 @@ namespace ofxOperations { namespace gui {
     public: // methods
         void setup(ofxOperations::OperationGroup *operationGroup=NULL);
         void draw();
+
         void activate(){ setActive(); }
+        void updateSuggestions(const string& query);
+        static bool match(const string& name, const string& query);
 
     public: // getter/setter methods
 
-        bool getActive(){ return bActive; }
+        bool getActive(){ return textInput.getActive(); }
         void setActive(bool active=true);
 
     private: // callbacks
 
         void onSuggestionSelect(Operation &op);
         void onTextInputEscape(TextInput &input);
+        void onTextInputChange(TextInput &input);
 
     private: // attributes
-        bool bActive;
 
         TextInput textInput;
         SuggestionsBox suggestionsBox;
