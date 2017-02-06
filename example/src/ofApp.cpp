@@ -38,6 +38,7 @@ void ofApp::setup(){
     params.add(subParams);
 
     // generate operations for all params
+    opsGroup.add(ofxOperations::Generator::generateDefault());
     opsGroup.add(ofxOperations::Params::Generator::generateFor(params));
     // generate some dummy operations that do nothing
     opsGroup.add("111");
