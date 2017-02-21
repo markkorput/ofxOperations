@@ -1,13 +1,19 @@
 #pragma once
 
+// OF
+#include "ofEvents.h"
+// ofxOperations
 #include "TextInput.h"
 #include "SuggestionsBox.h"
 #include "../OperationGroup.h"
 
 namespace ofxOperations { namespace gui {
     class Launcher {
+
     public: // methods
-        void setup(ofxOperations::OperationGroup *operationGroup=NULL);
+        ~Launcher(){ destroy(); }
+        void setup(ofxOperations::OperationGroup *operationGroup=NULL, bool registerDraw=false);
+        void destroy();
         void draw(float x=10.0f, float y=10.0f);
 
         void activate(){ setActive(); }
@@ -24,6 +30,7 @@ namespace ofxOperations { namespace gui {
         void onSuggestionSelect(Operation &op);
         void onTextInputEscape(TextInput &input);
         void onTextInputChange(TextInput &input);
+        void onDraw(ofEventArgs &args);
 
     private: // attributes
 

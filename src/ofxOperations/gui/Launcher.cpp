@@ -1,11 +1,12 @@
-// ofxOperations
-#include "Launcher.h"
 // OF
 #include "ofUtils.h"
+#include "ofGraphics.h"
+// ofxOperations
+#include "Launcher.h"
 
 using namespace ofxOperations::gui;
 
-void Launcher::setup(ofxOperations::OperationGroup *operationGroup){
+void Launcher::setup(ofxOperations::OperationGroup *operationGroup, bool registerDraw){
     this->operationGroup = operationGroup;
 
     // initial state; all operations are suggested
@@ -20,9 +21,18 @@ void Launcher::setup(ofxOperations::OperationGroup *operationGroup){
     ofAddListener(suggestionsBox.selectEvent, this, &Launcher::onSuggestionSelect);
     ofAddListener(textInput.escapeEvent, this, &Launcher::onTextInputEscape);
     ofAddListener(textInput.changeEvent, this, &Launcher::onTextInputChange);
+
+    if(registerDraw)
+        ofAddListener(ofEvents().draw, this, &Launcher::onDraw);
+}
+
+void Launcher::destroy(){
+    // this listener won't be registered by default, but try to remove anyway
+    ofRemoveListener(ofEvents().draw, this, &Launcher::onDraw);
 }
 
 void Launcher::draw(float x, float y){
+    ofEnableAlphaBlending();
     textInput.draw(x, y);
     suggestionsBox.draw(x, y+15.0f);
 }
@@ -85,4 +95,9 @@ void Launcher::onTextInputEscape(TextInput &input){
 void Launcher::onTextInputChange(TextInput &input){
     updateSuggestions(input.getValue());
     suggestionsBox.resetSelected();
+}
+
+void Launcher::onDraw(ofEventArgs &args){
+    if(getActive())
+        draw();
 }

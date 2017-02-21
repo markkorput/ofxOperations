@@ -21,7 +21,7 @@ void SuggestionsBox::draw(float x, float y){
     ofSetColor(ofColor::white);
     if(operations->size() == 0){
         string msg = "[no operations]";
-        ofDrawBitmapString(msg, x, y);
+        ofDrawBitmapStringHighlight(msg, x, y);
         return;
     }
 
@@ -30,10 +30,12 @@ void SuggestionsBox::draw(float x, float y){
         lastVisible = operations->size()-1;
 
     float dy=15.0f;
+    string prefix;
 
     for(int i=nFirstVisible; i<=lastVisible; i++){
         auto op = (*operations)[i];
-        ofDrawBitmapString(op->getName(), i == nSelected ? x + 10.0f : x, y);
+        string prefix = i == nSelected ? "> " : "  ";
+        ofDrawBitmapStringHighlight(prefix+op->getName(), x, y);
         y += dy;
     }
 }

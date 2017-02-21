@@ -12,6 +12,9 @@ class ofApp : public ofBaseApp{
         void draw();
         void keyPressed(int key);
 
+        void onFoo(ofxOperations::Operation &op);
+        void onTitleChange(string &param);
+
     public: // parameters
 
         ofParameterGroup params, subParams;
@@ -22,6 +25,7 @@ class ofApp : public ofBaseApp{
     private:
         ofxOperations::OperationGroup opsGroup;
         ofxOperations::gui::Launcher operationsLauncher;
+        string idleMessage, activeMessage;
 };
 
 //--------------------------------------------------------------
@@ -29,36 +33,43 @@ class ofApp : public ofBaseApp{
 //--------------------------------------------------------------
 
 void ofApp::setup(){
-    // setup params
+    // configure params
     params.setName("ofxOperationsTestParam");
-    params.add(sizeParam.set("size", 1.0f));
-    params.add(posParam.set("pos", ofVec2f(0.0f)));
+    params.add(posParam.set("pos", ofVec2f(10.0f, 120.0f)));
     subParams.setName("sub");
-    subParams.add(strParam.set("name", "no name"));
+    subParams.add(strParam.set("window title", "ofxOperations example"));
     params.add(subParams);
 
-    // generate operations for params
-    ofxOperations::Params::Generator opsParamsGenerator;
-    opsGroup.add(opsParamsGenerator.generateFor(params));
-    // generate some dummy operations that do nothing
-    opsGroup.add("111");
-    opsGroup.add("222");
-    opsGroup.add("333");
-    opsGroup.add("444");
-    opsGroup.add("555");
-    opsGroup.add("666");
+    // generate some common operations
+    opsGroup.add(ofxOperations::Generator::generateDefault());
+    opsGroup.add(ofxOperations::Params::Generator::generateFor(params));
+    // generate a custom operation and add a listener for when it's invoked
+    opsGroup.add("foo");
 
-    // setup launcher operations GUI
-    operationsLauncher.setup(&opsGroup);
+
+    // setup launcher GUI
+    operationsLauncher.setup(&opsGroup, true /* register draw event */);
+
+    // call for action
+    idleMessage = "Press the tilde (~)\nto open the launcher";
+    activeMessage = "Use up/down arrow keys\nto navigate the SuggestionsBox\n\nor start typing to narrow\ndown the suggestions";
+
+
+    ofAddListener(opsGroup.getByName("foo")->startEvent, this, &ofApp::onFoo);
+    strParam.addListener(this, &ofApp::onTitleChange);
+
+    ofSetWindowTitle(strParam.get());
+    ofSetWindowShape(400,300);
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-    ofSetColor(ofColor::red);
-    ofDrawRectangle(posParam.get().x, posParam.get().y, sizeParam.get(), 10.0f);
+    ofBackground(ofColor::lightGreen);
 
-    if(operationsLauncher.getActive())
-        operationsLauncher.draw();
+    ofDrawBitmapStringHighlight(
+        operationsLauncher.getActive() ? activeMessage : idleMessage,
+        posParam.get().x,
+        posParam.get().y);
 }
 
 //--------------------------------------------------------------
@@ -68,6 +79,14 @@ void ofApp::keyPressed(int key){
 
     if(key == '`')
         operationsLauncher.activate();
+}
+
+void ofApp::onFoo(ofxOperations::Operation &op){
+    idleMessage = "Foo you very much";
+}
+
+void ofApp::onTitleChange(string &s){
+    ofSetWindowTitle(s);
 }
 
 //--------------------------------------------------------------
