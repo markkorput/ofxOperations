@@ -42,3 +42,11 @@ shared_ptr<Operation> OperationGroup::add(const string& name, const string &desc
     add(op);
     return op;
 }
+
+shared_ptr<Operation> OperationGroup::getByName(const string& name){
+    for(auto op : operations)
+        if(op->getName() == name)
+            return op;
+
+    return nullptr;
+}

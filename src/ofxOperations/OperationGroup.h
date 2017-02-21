@@ -17,6 +17,7 @@ namespace ofxOperations {
             void remove(OperationGroup &opGroup);
             void remove(shared_ptr<OperationGroup> opGroup);
             shared_ptr<Operation> add(const string& name = "", const string &description = "");
+            shared_ptr<Operation> getByName(const string& name);
 
         public: // getters / setters
             const vector<shared_ptr<Operation>> & getOperations(){ return operations; }
