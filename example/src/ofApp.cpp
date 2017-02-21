@@ -18,7 +18,6 @@ class ofApp : public ofBaseApp{
     public: // parameters
 
         ofParameterGroup params, subParams;
-        ofParameter<float> sizeParam;
         ofParameter<ofVec2f> posParam;
         ofParameter<string> strParam;
 
@@ -38,14 +37,18 @@ void ofApp::setup(){
     params.add(posParam.set("pos", ofVec2f(10.0f, 120.0f)));
     subParams.setName("sub");
     subParams.add(strParam.set("window title", "ofxOperations example"));
+    strParam.addListener(this, &ofApp::onTitleChange);
     params.add(subParams);
+
+    ofSetWindowTitle(strParam.get());
+    ofSetWindowShape(400,300);
 
     // generate some common operations
     opsGroup.add(ofxOperations::Generator::generateDefault());
     opsGroup.add(ofxOperations::Params::Generator::generateFor(params));
     // generate a custom operation and add a listener for when it's invoked
     opsGroup.add("foo");
-
+    ofAddListener(opsGroup.getByName("foo")->startEvent, this, &ofApp::onFoo);
 
     // setup launcher GUI
     operationsLauncher.setup(&opsGroup, true /* register draw event */);
@@ -53,13 +56,6 @@ void ofApp::setup(){
     // call for action
     idleMessage = "Press the tilde (~)\nto open the launcher";
     activeMessage = "Use up/down arrow keys\nto navigate the SuggestionsBox\n\nor start typing to narrow\ndown the suggestions";
-
-
-    ofAddListener(opsGroup.getByName("foo")->startEvent, this, &ofApp::onFoo);
-    strParam.addListener(this, &ofApp::onTitleChange);
-
-    ofSetWindowTitle(strParam.get());
-    ofSetWindowShape(400,300);
 }
 
 //--------------------------------------------------------------
