@@ -1,15 +1,24 @@
+#include "ofEventUtils.h"
 #include "OperationGroup.h"
 
 using namespace ofxOperations;
 
+void OperationGroup::destroy(){
+    for(auto &followedGroup : followedGroups){
+        unfollow(followedGroup);
+    }
+}
+
 void OperationGroup::add(shared_ptr<Operation> op){
     operations.push_back(op);
+    ofNotifyEvent(operationAddedEvent, op);
 }
 
 void OperationGroup::remove(shared_ptr<Operation> op){
     for(auto it = operations.begin(); it != operations.end(); it++){
         if((*it) == op){
             operations.erase(it);
+            ofNotifyEvent(operationRemovedEvent, *it);
             return;
         }
     }
@@ -49,4 +58,24 @@ shared_ptr<Operation> OperationGroup::getByName(const string& name){
             return op;
 
     return nullptr;
+}
+
+void OperationGroup::follow(shared_ptr<OperationGroup> otherGroup){
+    add(otherGroup);
+    ofAddListener(otherGroup->operationAddedEvent, this, &OperationGroup::onFollowedAdded);
+    ofAddListener(otherGroup->operationRemovedEvent, this, &OperationGroup::onFollowedRemoved);
+    followedGroups.push_back(otherGroup);
+}
+
+void OperationGroup::unfollow(shared_ptr<OperationGroup> otherGroup, bool remove){
+    for(auto it = followedGroups.begin(); it != followedGroups.end(); it++){
+        if((*it) == otherGroup){
+            ofRemoveListener(otherGroup->operationAddedEvent, this, &OperationGroup::onFollowedAdded);
+            ofRemoveListener(otherGroup->operationRemovedEvent, this, &OperationGroup::onFollowedRemoved);
+            if(remove)
+                this->remove(otherGroup);
+            followedGroups.erase(it);
+            return;
+        }
+    }
 }
