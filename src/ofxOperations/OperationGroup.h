@@ -11,7 +11,11 @@ namespace ofxOperations {
 
         public: // methods
             void add(shared_ptr<Operation> op);
+            void remove(shared_ptr<Operation> op);
+            void add(OperationGroup &opGroup);
             void add(shared_ptr<OperationGroup> opGroup);
+            void remove(OperationGroup &opGroup);
+            void remove(shared_ptr<OperationGroup> opGroup);
             shared_ptr<Operation> add(const string& name = "", const string &description = "");
 
         public: // getters / setters
