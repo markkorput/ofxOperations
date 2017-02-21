@@ -30,10 +30,12 @@ void SuggestionsBox::draw(float x, float y){
         lastVisible = operations->size()-1;
 
     float dy=15.0f;
+    string prefix;
 
     for(int i=nFirstVisible; i<=lastVisible; i++){
         auto op = (*operations)[i];
-        ofDrawBitmapStringHighlight(op->getName(), i == nSelected ? x + 10.0f : x, y);
+        string prefix = i == nSelected ? "> " : "  ";
+        ofDrawBitmapStringHighlight(prefix+op->getName(), x, y);
         y += dy;
     }
 }
