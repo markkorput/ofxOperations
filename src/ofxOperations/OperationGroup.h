@@ -16,6 +16,7 @@ namespace ofxOperations {
 
             void add(shared_ptr<Operation> op);
             void remove(shared_ptr<Operation> op);
+            void remove(Operation &op);
 
             void add(OperationGroup &opGroup);
             void add(shared_ptr<OperationGroup> opGroup);

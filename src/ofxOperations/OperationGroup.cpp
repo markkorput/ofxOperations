@@ -24,6 +24,14 @@ void OperationGroup::remove(shared_ptr<Operation> op){
     }
 }
 
+void OperationGroup::remove(Operation &op){
+    for(auto curOp : operations){
+        if(curOp.get() == &op){
+            remove(curOp);
+        }
+    }
+}
+
 void OperationGroup::add(OperationGroup &otherGroup){
     // copy all operations from otherGroup to this group
     for(auto &op : otherGroup.getOperations()){
