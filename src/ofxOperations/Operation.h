@@ -11,7 +11,7 @@ namespace ofxOperations {
         public: // methods
 
             Operation();
-            Operation(string name, string description="");
+            Operation(const string &name, const string &description="");
             void run();
 
         protected:
@@ -22,9 +22,9 @@ namespace ofxOperations {
 
 
             const string& getName(){ return name; }
-            void setName(string name){ this->name = name; }
+            void setName(const string &name){ this->name = name; }
             const string& getDescription(){ return description; }
-            void setDescription(string desc){ this->description = desc; }
+            void setDescription(const string &desc){ this->description = desc; }
             void set(const string& name, const string& description = "");
             void setAsync(bool async=true){ bAsync = async; }
 

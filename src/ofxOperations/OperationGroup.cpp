@@ -18,16 +18,16 @@ void OperationGroup::remove(shared_ptr<Operation> op){
     for(auto it = operations.begin(); it != operations.end(); it++){
         if((*it) == op){
             operations.erase(it);
-            ofNotifyEvent(operationRemovedEvent, *it);
+            ofNotifyEvent(operationRemovedEvent, op);
             return;
         }
     }
 }
 
 void OperationGroup::remove(Operation &op){
-    for(auto curOp : operations){
-        if(curOp.get() == &op){
-            remove(curOp);
+    for(auto opRef : operations){
+        if(opRef.get() == &op){
+            remove(opRef);
         }
     }
 }
