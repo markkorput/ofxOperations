@@ -8,7 +8,7 @@ using namespace ofxOperations;
 Operation::Operation() : name(""), description("") {
 }
 
-Operation::Operation(string name, string description){
+Operation::Operation(const string &name, const string &description){
     this->name = name;
     this->description = description;
 }
